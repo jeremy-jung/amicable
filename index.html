@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div>
+            <form onsubmit = "return false;">
+                <input id="numberOne" type="text">
+                <input id="numberTwo" type="text">
+                <input id="submit" type="submit">
+            
+            </form>
+        </div>
+        <div>
+            <div>
+                <div id="arrays">
+                </div>
+            </div>
+            <div>
+                Number one: 
+                <div id="numberOneDisplay">
+                
+                </div>
+            </div>
+            <div>
+                Number two:
+                <div id="numberTwoDisplay">
+                
+                </div>
+            </div>
+            <div>
+                Number one's factors:
+                <div id="numberOneFactors">
+                
+                </div>
+            </div>
+            <div>
+                Number two's factors:
+                <div id="numberTwoFactors">
+                
+                </div>
+            </div>
+            <div>
+                Numbers are amicable
+                <div id="amicable">
+            
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        var numberOne;
+        var numberTwo;
+
+        //testCode();
+
+
+        var submitButton = document.getElementById("submit");
+        submitButton.addEventListener("click", function() {
+            
+            numberOne = parseInt(document.getElementById("numberOne").value);
+            numberTwo = parseInt(document.getElementById("numberTwo").value);
+
+            document.getElementById("numberOneDisplay").innerHTML = numberOne;
+            document.getElementById("numberTwoDisplay").innerHTML = numberTwo;
+
+            var numberOneArray = document.getElementById("numberOneFactors");
+            var numberTwoArray = document.getElementById("numberTwoFactors");
+            var amicable = document.getElementById("amicable")
+
+            var numberOneFactors = getFactors(numberOne);
+            var numberTwoFactors = getFactors(numberTwo);
+            
+            showArray(numberOneFactors, numberOneArray);
+            showArray(numberTwoFactors, numberTwoArray);
+            
+            //console.log(numberOneFactors)
+            if ( (addArray(numberTwoFactors) == numberOne) && (addArray(numberOneFactors) == numberTwo) ) {
+                amicable.innerHTML = "True";
+            }
+            else {
+                amicable.innerHTML = "False";
+            }
+        })
+
+        function isFactor (number, possibleFactor) {
+            if ( number % possibleFactor == 0 ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        
+        function showArray(array, div) {
+            var arraysElement = div;
+            for ( var index in array ) {
+
+                if (index < array.length - 1) {
+                    arraysElement.innerHTML = arraysElement.innerHTML + array[index] + ",";
+                }
+                else {
+                    arraysElement.innerHTML = arraysElement.innerHTML + array[index];
+                }
+
+            }
+        }
+
+        function addArray(array) {
+            var sum = 0;
+
+            for ( var index in array ) {
+                sum = sum + array[index];
+            }
+
+            return sum;
+        }
+
+        function getFactors(number) {
+            var factors = [];
+
+            if ( number > 0 ) {
+                if ( number == 1 ) {
+                    factors = [1];
+                }
+                else {
+                    for (var i = 1; i < number; i++) {
+                        if (isFactor(number, i)) {
+                            factors.push(i);
+                        }
+                    }
+                }
+            }
+            else if ( number < 0 ){
+                if ( number == -1 ) {
+                    factors = [-1, 1];
+                }
+                else {
+                    for (var i = -1; i > number; i--) {
+                        if (isFactor(number, i)) {
+                            factors.push(i);
+                        }
+                    }
+                }
+
+                for ( var index in factors ) {
+                    factors.push(-factors[index]);
+                }
+            }
+            else {
+                // every number is a factor of zero, and the sum of all numbers is 0.
+                // this step is designed to skip the sum of infinite numbers
+                factors = [0];
+            }
+            console.log(factors);
+            return factors;
+        }
+
+        function testCode() {
+            // test isFactor()
+            console.log("2 is a factor of 4: ", isFactor(4, 2));
+            console.log("3 is a factor of 4: ", isFactor(4, 3));
+            // test showArray
+            showArray([1,2,3,4], document.getElementById("arrays"))
+            // test addArray
+            console.log("sum of [1,2,3,4]: ", addArray([1,2,3,4]));
+            console.log("factors of 220: ", getFactors(220));
+        }
+    </script>
+</html>
