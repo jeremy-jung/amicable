@@ -55,7 +55,6 @@
 
         //testCode();
 
-
         var submitButton = document.getElementById("submit");
         submitButton.addEventListener("click", function() {
             
@@ -121,26 +120,16 @@
             var factors = [];
 
             if ( number > 0 ) {
-                if ( number == 1 ) {
-                    factors = [1];
-                }
-                else {
-                    for (var i = 1; i < number; i++) {
-                        if (isFactor(number, i)) {
-                            factors.push(i);
-                        }
+                for (var i = 1; i < number; i++) {
+                    if (isFactor(number, i)) {
+                        factors.push(i);
                     }
                 }
             }
             else if ( number < 0 ){
-                if ( number == -1 ) {
-                    factors = [-1, 1];
-                }
-                else {
-                    for (var i = -1; i > number; i--) {
-                        if (isFactor(number, i)) {
-                            factors.push(i);
-                        }
+                for (var i = -1; i > number; i--) {
+                    if (isFactor(number, i)) {
+                        factors.push(i);
                     }
                 }
 
